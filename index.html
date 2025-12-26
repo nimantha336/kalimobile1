@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>KaliMobile Network Protocol</title>
+
+<!-- GOOGLE FONT -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: #00ff00;
+  font-family: 'Orbitron', monospace;
+}
+
+/* CENTER */
+.center {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 90%;
+}
+
+/* INPUT */
+input {
+  background: black;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 10px;
+  margin: 6px;
+  width: 220px;
+  font-family: 'Orbitron';
+}
+
+/* BUTTON */
+button {
+  background: transparent;
+  color: #00ff00;
+  border: 1px solid #00ff00;
+  padding: 10px 25px;
+  margin-top: 15px;
+  cursor: pointer;
+  font-family: 'Orbitron';
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #00ff00;
+  color: black;
+}
+
+.hidden {
+  display: none;
+}
+
+/* HACK TEXT */
+#hackText {
+  font-size: 28px;
+  letter-spacing: 2px;
+  animation: glow 1.5s infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 5px #00ff00; }
+  to { text-shadow: 0 0 20px #00ff00; }
+}
+
+/* SERVICES ANIMATION */
+.services {
+  font-size: 20px;
+  margin: 10px 0;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.5s ease;
+}
+
+.services.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CONTACT */
+.contact button {
+  margin: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN PAGE -->
+<div id="login" class="center">
+  <h2>KaliMobile Secure Access</h2>
+  <input id="user" placeholder="Username"><br>
+  <input id="pass" type="password" placeholder="Password"><br>
+  <button onclick="login()">ACCESS</button>
+  <div id="error"></div>
+</div>
+
+<!-- HACK PAGE -->
+<div id="hack" class="center hidden">
+  <div id="hackText"></div><br>
+  <button onclick="goServices()">Access Protocol</button>
+</div>
+
+<!-- SERVICES PAGE (SINHALA) -->
+<div id="servicesPage" class="center hidden">
+  <h1>අපගේ සේවාවන්</h1>
+
+  <div class="services">✔ සියලු වර්ගයේ ජංගම දුරකථන අලුත්වැඩියා</div>
+  <div class="services">✔ Water < Drop Damage දුරකථන අලුත්වැඩියා</div>
+  <div class="services">✔ Power නොඑන දුරකථන සකස් කිරීම</div>
+  <div class="services">✔ Network සම්බන්ධ ගැටලු විසඳීම</div>
+  <div class="services">✔ Display හා Battery මාරු කිරීම</div>
+  <div class="services">✔ Phone Unlock කිරීම</div>
+  <div class="services">✔ Software / Flash / Update සේවාවන්</div>
+
+  <br>
+  <h3>අපව සම්බන්ධ කරගන්න</h3>
+
+  <div class="contact">
+    <button onclick="whatsapp()">WhatsApp</button>
+    <button onclick="callNow()">Call</button>
+  </div>
+</div>
+
+<script>
+const loginDiv = document.getElementById("login");
+const hackDiv = document.getElementById("hack");
+const servicesPage = document.getElementById("servicesPage");
+const hackText = document.getElementById("hackText");
+const error = document.getElementById("error");
+
+/* HACK TEXT EFFECT */
+const TARGET_TEXT = "KALI MOBILE NETWORK PROTOCOL";
+const SYMBOLS = "@#$%&*<>/\\|[]{}▓▒░█";
+let index = 0;
+
+function randomSymbol() {
+  return SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)];
+}
+
+function buildText() {
+  let out = "";
+  for (let i = 0; i < TARGET_TEXT.length; i++) {
+    if (i < index) out += TARGET_TEXT[i];
+    else if (TARGET_TEXT[i] === " ") out += " ";
+    else out += randomSymbol();
+  }
+  hackText.innerText = out;
+
+  if (index <= TARGET_TEXT.length) {
+    index++;
+    setTimeout(buildText, 60);
+  }
+}
+
+/* LOGIN */
+function login() {
+  const u = document.getElementById("user").value;
+  const p = document.getElementById("pass").value;
+
+  if (u === "kalimobile" && p === "2001") {
+    loginDiv.style.display = "none";
+    hackDiv.classList.remove("hidden");
+    buildText();
+  } else {
+    error.innerText = "ACCESS DENIED";
+  }
+}
+
+/* SERVICES ANIMATION */
+function animateServices() {
+  document.querySelectorAll(".services").forEach((item, i) => {
+    setTimeout(() => {
+      item.classList.add("show");
+    }, i * 300);
+  });
+}
+
+/* NAVIGATION */
+function goServices() {
+  hackDiv.style.display = "none";
+  servicesPage.classList.remove("hidden");
+  animateServices();
+}
+
+/* CONTACT */
+function whatsapp() {
+  window.open("https://wa.me/94712015356?text=Hello%20KaliMobile", "_blank");
+}
+
+function callNow() {
+  window.location.href = "tel:+94712015356";
+}
+</script>
+
+</body>
+</html>
